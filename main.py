@@ -16,31 +16,35 @@ def print_board():
             print(j, end=" ")
         print()
 
-# print_board()
-
 def check_row(row, num):
     for i in range(9):
         if board[row][i]==num:
             return False
     return True
 
-def check_column(row, col):
+def check_column(col, num):
     for i in range(9):
         if board[i][col]==num:
             return False
     return True
 
-def check_box(row, col):
+def check_box(row, col, num):
     for i in range(3):
         for j in range(3):
-            if board[i+row][(j+col)%3]==num:
+            if board[(i+row)%3][(j+col)%3]==num:
                 return False
     return True
 
+def check_all(row, col, num):
+    return check_row(row, num) and check_column(col, num) and check_box(row, col, num)
 
-print(check_row(0, 1))
 
-# while True:
-#     for nums in board:
-#         for num in nums:
-#             if num==0:
+
+
+
+
+# def test():
+#     for i in range(1,10):
+#         print(f'{i} -> {check_box(0, 2, i)}')
+#
+# test()
