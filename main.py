@@ -16,6 +16,16 @@ def print_board():
             print(j, end=" ")
         print()
 
+
+def check_empty(loc):
+    for row in range(9):
+        for col in range(9):
+            if board[row][col]==0:
+                loc[0]=row
+                loc[1]=col
+                return True
+    return False
+
 def check_row(row, num):
     for i in range(9):
         if board[row][i]==num:
@@ -37,7 +47,6 @@ def check_box(row, col, num):
 
 def check_all(row, col, num):
     return check_row(row, num) and check_column(col, num) and check_box(row, col, num)
-
 
 
 
