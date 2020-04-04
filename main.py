@@ -17,40 +17,64 @@ def print_board():
         print()
 
 
-def check_empty(loc):
+def check_empty(arr, loc):
     for row in range(9):
         for col in range(9):
-            if board[row][col]==0:
+            if arr[row][col]==0:
                 loc[0]=row
                 loc[1]=col
                 return True
     return False
 
-def check_row(row, num):
+def check_row(arr, row, num):
     for i in range(9):
-        if board[row][i]==num:
+        if arr[row][i]==num:
             return False
     return True
 
-def check_column(col, num):
+def check_column(arr, col, num):
     for i in range(9):
-        if board[i][col]==num:
+        if arr[i][col]==num:
             return False
     return True
 
-def check_box(row, col, num):
+def check_box(arr, row, col, num):
     for i in range(3):
         for j in range(3):
-            if board[(i+row)%3][(j+col)%3]==num:
+            if arr[i+(row-row%3)][j+(col-col%3)]==num:
                 return False
     return True
 
-def check_all(row, col, num):
-    return check_row(row, num) and check_column(col, num) and check_box(row, col, num)
+def check_all(arr, row, col, num):
+    return check_row(arr, row, num) and check_column(arr, col, num) and check_box(arr, row, col, num)
 
 
+def solve(arr):
 
+    loc = [0, 0]
 
+    if not check_empty(arr, loc):
+        return True
+
+    row, col = loc[0], loc[1]
+
+    for num in range(9):
+        if check_all(arr, row, col, num+1):
+            arr[row][col]=num+1
+
+            if solve(arr):
+                return True
+
+            arr[row][col]=0
+    return False
+
+solve(board)
+
+# def hello():
+#     board[0][2]=1
+#
+# hello()
+print_board()
 
 # def test():
 #     for i in range(1,10):
